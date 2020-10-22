@@ -2,6 +2,7 @@ import example.BookServiceRemote;
 import example.Livre;
 
 import javax.naming.InitialContext;
+import java.util.List;
 
 public class Client {
     public static void main(String[] args) {
@@ -31,7 +32,7 @@ public class Client {
 
             System.out.println("FIND");
             try {
-                System.out.println(remote.find("test"));
+                System.out.println(remote.findById("test"));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
@@ -45,7 +46,7 @@ public class Client {
 
             System.out.println("REMOVE");
             try {
-                remote.delete("test");
+                remote.deleteById("test");
                 System.out.println("Success");
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -54,6 +55,22 @@ public class Client {
             System.out.println("FIND_ALL");
             try {
                 System.out.println(remote.findAll());
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("TAKE_ALL");
+            try {
+                final List<Livre> list = remote.findAll();
+                System.out.println(remote.take(list.toArray(new Livre[0])));
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("GIVE_ALL_BACK");
+            try {
+                final List<Livre> list = remote.findAll();
+                System.out.println(remote.giveBack(list.toArray(new Livre[0])));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
