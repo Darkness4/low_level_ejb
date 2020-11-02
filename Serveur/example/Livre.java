@@ -52,6 +52,14 @@ public class Livre implements Serializable {
         this.dispo = dispo;
     }
 
+    public void incrementDispo() {
+        this.dispo++;
+    }
+
+    public void decrementDispo() {
+        this.dispo--;
+    }
+
     @Override
     public String toString() {
         return "Livre{" +

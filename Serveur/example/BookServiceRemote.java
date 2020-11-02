@@ -6,9 +6,11 @@ import java.util.List;
 @Remote
 public interface BookServiceRemote {
     Livre create(Livre livre);
-    Livre find(String isbn);
+    Livre findById(String isbn);
     List<Livre> findAll();
     void delete(Livre livre);
-    void delete(String isbn);
+    void deleteById(String isbn);
     Livre update(Livre livre);
+    List<Livre> take(Livre ... livres);
+    List<Livre> giveBack(Livre ... livres);
 }

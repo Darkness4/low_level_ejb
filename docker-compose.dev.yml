@@ -20,17 +20,6 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=opste963
     depends_on:
       - db
-  app:
-    build:
-      context: ./Serveur
-      dockerfile: Dockerfile
-    ports:
-      - 8083:8080
-      - 4848:4848
-      - 9009:9009
-      - 8181:8181
-    depends_on:
-      - db
 
 volumes:
   postgres_data:

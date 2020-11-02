@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<persistence  xmlns="http://java.sun.com/xml/ns/persistence" 
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-              version="1.0"  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-              http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
     <persistence-unit name="Biblio_PU">
-                <jta-data-source>jdbc/biblio</jta-data-source>
-                <properties>
-                <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+        <jta-data-source>jdbc/biblio</jta-data-source>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/biblio"/>
             <property name="javax.persistence.jdbc.user" value="bookshelf"/>
             <property name="javax.persistence.jdbc.password" value="bookshelf"/>
-            </properties>
+        </properties>
     </persistence-unit>
 </persistence>
