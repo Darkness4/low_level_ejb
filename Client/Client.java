@@ -1,76 +1,62 @@
-import example.BookServiceRemote;
-import example.Livre;
+import example.Emprunteur;
+import example.GestionEmprunt;
+import example.InfosLivre;
+import example.LivreEmp;
+import example.exceptions.NbMaxEmpruntsAtteint;
 
 import javax.naming.InitialContext;
-import java.util.List;
 
 public class Client {
     public static void main(String[] args) {
         try {
             InitialContext initialContext = new InitialContext();
-            BookServiceRemote remote = (BookServiceRemote) initialContext.lookup("example.BookServiceRemote");
-            System.out.println("CREATE");
+            GestionEmprunt gestionEmprunt = (GestionEmprunt) initialContext.lookup("example.GestionEmprunt");
+            InfosLivre infosLivre = (InfosLivre) initialContext.lookup("example.InfosLivre");
+
+            System.out.println("desemprunter");
             try {
-                System.out.println(remote.create(new Livre("test", "test")));
+                {
+                    var list = infosLivre.desemprunter();
+                    System.out.println(list);
+                }
+                {
+                    var list = gestionEmprunt.desemprunter();
+                    System.out.println(list);
+                }
             } catch (Throwable e) {
                 e.printStackTrace();
             }
 
-            System.out.println("FIND_ALL");
+            System.out.println("Find a emprunteur and take 3 book");
             try {
-                System.out.println(remote.findAll());
+                Emprunteur emprunteur = gestionEmprunt.find(0);
+                LivreEmp livreEmp = infosLivre.findById("111");
+                LivreEmp livreEmp2 = infosLivre.findById("222");
+                LivreEmp livreEmp3 = infosLivre.findById("333");
+                System.out.println(gestionEmprunt.take(emprunteur, livreEmp, livreEmp2, livreEmp3));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
 
-            System.out.println("UPDATE");
+            System.out.println("Find the same emprunteur and take more book that he can take");
             try {
-                System.out.println(remote.update(new Livre("test", "test2")));
+                Emprunteur emprunteur = gestionEmprunt.find(0);
+                LivreEmp livreEmp = infosLivre.findById("444");
+                System.out.println(gestionEmprunt.take(emprunteur, livreEmp));
+                System.out.println("Comportement non voulue");
+            } catch (NbMaxEmpruntsAtteint e) {
+                System.out.println("OK : " + e);
             } catch (Throwable e) {
                 e.printStackTrace();
             }
 
-            System.out.println("FIND");
+            System.out.println("Find the same emprunteur and give back the books");
             try {
-                System.out.println(remote.findById("test"));
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("FIND_ALL");
-            try {
-                System.out.println(remote.findAll());
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("REMOVE");
-            try {
-                remote.deleteById("test");
-                System.out.println("Success");
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("FIND_ALL");
-            try {
-                System.out.println(remote.findAll());
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("TAKE_ALL");
-            try {
-                final List<Livre> list = remote.findAll();
-                System.out.println(remote.take(list.toArray(new Livre[0])));
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("GIVE_ALL_BACK");
-            try {
-                final List<Livre> list = remote.findAll();
-                System.out.println(remote.giveBack(list.toArray(new Livre[0])));
+                Emprunteur emprunteur = gestionEmprunt.find(0);
+                LivreEmp livreEmp = infosLivre.findById("111");
+                LivreEmp livreEmp2 = infosLivre.findById("222");
+                LivreEmp livreEmp3 = infosLivre.findById("333");
+                System.out.println(gestionEmprunt.giveBack(emprunteur, livreEmp, livreEmp2, livreEmp3));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
@@ -80,3 +66,4 @@ public class Client {
         }
     }
 }
+

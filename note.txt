@@ -1,0 +1,13 @@
+create table emprunteur ( numemp int not null primary key, nom char(20), nblivresemp int default 0);
+create table livre_emp ( isbn char(4) not null primary key, titre char (20), empruntepar int default 0 references
+emprunteur(numemp), check (empruntepar >= 0) );
+insert into emprunteur values(1, 'Jean',0);
+insert into emprunteur values(2, 'Jacques',0);
+insert into emprunteur values(3, 'Paul',0);
+insert into emprunteur values(0, 'Bidon',0);
+insert into livre_emp values('111', 'Le petit prince',0);
+insert into livre_emp values('222', 'Barjavel',0);
+insert into livre_emp values('333', 'Le rouge et le noir',0);
+insert into livre_emp values('444', 'Le pere Goriot',0);
+insert into livre_emp values('555', 'Le tour du monde',0);
+insert into livre_emp values('666', 'Vendredi',0);
