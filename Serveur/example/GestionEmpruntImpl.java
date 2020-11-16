@@ -5,6 +5,7 @@ import example.entities.LivreEmp;
 import example.exceptions.LivreDejaEmprunte;
 import example.exceptions.NbMaxEmpruntsAtteint;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,9 @@ import java.util.List;
 
 @Stateful
 public class GestionEmpruntImpl implements GestionEmprunt {
+    @Resource(name = "maxEmprunt")
+    int maxEmprunt;
+
     Emprunteur empSession = null;
 
     @PersistenceContext(unitName = "Biblio_PU")
@@ -42,22 +46,22 @@ public class GestionEmpruntImpl implements GestionEmprunt {
     public List<LivreEmp> take(LivreEmp... livreEmps) throws NbMaxEmpruntsAtteint, LivreDejaEmprunte {
         final List<LivreEmp> modified = new ArrayList<>();
         for (LivreEmp livreEmp : livreEmps) {
-            if (livreEmp.getEmpruntepar() == 0) {
-                if (empSession.getNblivresemp() < GestionEmprunt.MAX_EMPRUNT) {
-                    empSession.incrementNblivresemp();
-                    empSession = em.merge(empSession);
+            if (empSession.getNblivresemp() < maxEmprunt) {
+                empSession.incrementNblivresemp();
+                empSession = em.merge(empSession);
+            } else {
+                throw new NbMaxEmpruntsAtteint();
+            }
 
-                    livreEmp.setEmpruntepar(empSession.getNumemp());
-                    livreEmp = em.merge(livreEmp);
-                    modified.add(livreEmp);
-                    em.flush();
-                } else {
-                    throw new NbMaxEmpruntsAtteint();
-                }
+            if (livreEmp.getEmpruntepar() == 0) {
+                livreEmp.setEmpruntepar(empSession.getNumemp());
+                livreEmp = em.merge(livreEmp);
+                modified.add(livreEmp);
             } else {
                 throw new LivreDejaEmprunte();
             }
         }
+        em.flush();
         return modified;
     }
 

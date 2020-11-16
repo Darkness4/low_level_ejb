@@ -1,6 +1,7 @@
 import example.GestionEmprunt;
 import example.InfosLivre;
 import example.entities.LivreEmp;
+import example.exceptions.LivreDejaEmprunte;
 import example.exceptions.NbMaxEmpruntsAtteint;
 
 import javax.naming.InitialContext;
@@ -48,6 +49,19 @@ public class Client {
                 LivreEmp livreEmp2 = infosLivre.findById("222");
                 LivreEmp livreEmp3 = infosLivre.findById("333");
                 System.out.println(gestionEmprunt.giveBack(livreEmp, livreEmp2, livreEmp3));
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Take the same book twice. Emprunteur counter should be rollbacked (= 1)");
+            try {
+                LivreEmp livreEmp = infosLivre.findById("444");
+                System.out.println(gestionEmprunt.take(livreEmp));
+                System.out.println(gestionEmprunt.take(livreEmp));
+                System.out.println("Comportement non voulue");
+            } catch (LivreDejaEmprunte e) {
+                System.out.println("OK : " + e);
+                System.out.println(gestionEmprunt.gerer(1));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
