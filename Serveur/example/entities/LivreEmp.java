@@ -60,19 +60,4 @@ public class LivreEmp implements Serializable {
                 ", empruntepar=" + empruntepar +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LivreEmp livreEmp = (LivreEmp) o;
-        return Objects.equals(isbn, livreEmp.isbn) &&
-                Objects.equals(titre, livreEmp.titre) &&
-                Objects.equals(empruntepar, livreEmp.empruntepar);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(isbn, titre, empruntepar);
-    }
 }

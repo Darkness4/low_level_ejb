@@ -53,10 +53,10 @@ public class Client {
                 e.printStackTrace();
             }
 
-            System.out.println("Take the same book twice. Emprunteur counter should be rollbacked (= 1)");
+            System.out.println("Take the same book twice. Emprunteur counter should be rollbacked (nblivresemp = 1)");
             try {
                 LivreEmp livreEmp = infosLivre.findById("444");
-                System.out.println(gestionEmprunt.take(livreEmp));
+                livreEmp = gestionEmprunt.take(livreEmp).get(0);
                 System.out.println(gestionEmprunt.take(livreEmp));
                 System.out.println("Comportement non voulue");
             } catch (LivreDejaEmprunte e) {

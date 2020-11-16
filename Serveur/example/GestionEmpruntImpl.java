@@ -33,7 +33,7 @@ public class GestionEmpruntImpl implements GestionEmprunt {
     @Override
     public List<Emprunteur> reinitialiser() {
         final List<Emprunteur> modified = new ArrayList<>();
-        var list = findAll();
+        final List<Emprunteur> list = findAll();
         for (Emprunteur emprunteur : list) {
             emprunteur.setNblivresemp(0);
             emprunteur = em.merge(emprunteur);

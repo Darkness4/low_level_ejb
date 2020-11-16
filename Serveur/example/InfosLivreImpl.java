@@ -32,7 +32,7 @@ public class InfosLivreImpl implements InfosLivre {
     @Override
     public List<LivreEmp> reinitialiser() {
         final List<LivreEmp> modified = new ArrayList<>();
-        var list = findAll();
+        final List<LivreEmp> list = findAll();
         for (LivreEmp livreEmp : list) {
             livreEmp.setEmpruntepar(0);
             livreEmp = em.merge(livreEmp);

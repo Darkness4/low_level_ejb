@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "emprunteur")
@@ -24,7 +23,7 @@ public class Emprunteur implements Serializable {
         return numemp;
     }
 
-    public void setNumemp(Integer numemp) {
+    public void setNumemp(int numemp) {
         this.numemp = numemp;
     }
 
@@ -61,20 +60,5 @@ public class Emprunteur implements Serializable {
                 ", nom='" + nom + '\'' +
                 ", nblivresemp=" + nblivresemp +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Emprunteur that = (Emprunteur) o;
-        return numemp == that.numemp &&
-                nblivresemp == that.nblivresemp &&
-                Objects.equals(nom, that.nom);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(numemp, nom, nblivresemp);
     }
 }
