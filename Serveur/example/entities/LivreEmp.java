@@ -1,4 +1,4 @@
-package example;
+package example.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,26 +14,25 @@ public class LivreEmp implements Serializable {
     @Column(length = 20)
     private String titre;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "empruntepar")
-    private Emprunteur empruntepar;
+    @Column
+    private int empruntepar;
 
     public LivreEmp() {
         super();
     }
 
-    public LivreEmp(String isbn, String titre, Emprunteur empruntepar) {
+    public LivreEmp(String isbn, String titre, int empruntepar) {
         super();
         this.isbn = isbn;
         this.titre = titre;
         this.empruntepar = empruntepar;
     }
 
-    public Emprunteur getEmpruntepar() {
+    public int getEmpruntepar() {
         return empruntepar;
     }
 
-    public void setEmpruntepar(Emprunteur empruntepar) {
+    public void setEmpruntepar(int empruntepar) {
         this.empruntepar = empruntepar;
     }
 

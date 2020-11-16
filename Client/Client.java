@@ -1,7 +1,6 @@
-import example.Emprunteur;
 import example.GestionEmprunt;
 import example.InfosLivre;
-import example.LivreEmp;
+import example.entities.LivreEmp;
 import example.exceptions.NbMaxEmpruntsAtteint;
 
 import javax.naming.InitialContext;
@@ -13,36 +12,29 @@ public class Client {
             GestionEmprunt gestionEmprunt = (GestionEmprunt) initialContext.lookup("example.GestionEmprunt");
             InfosLivre infosLivre = (InfosLivre) initialContext.lookup("example.InfosLivre");
 
-            System.out.println("desemprunter");
+            System.out.println("Reinitialiser");
             try {
-                {
-                    var list = infosLivre.desemprunter();
-                    System.out.println(list);
-                }
-                {
-                    var list = gestionEmprunt.desemprunter();
-                    System.out.println(list);
-                }
+                infosLivre.reinitialiser();
+                gestionEmprunt.reinitialiser();
             } catch (Throwable e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Find a emprunteur and take 3 book");
+            System.out.println("Gerer : " + gestionEmprunt.gerer(1));
+            System.out.println("Take 3 book");
             try {
-                Emprunteur emprunteur = gestionEmprunt.find(0);
                 LivreEmp livreEmp = infosLivre.findById("111");
                 LivreEmp livreEmp2 = infosLivre.findById("222");
                 LivreEmp livreEmp3 = infosLivre.findById("333");
-                System.out.println(gestionEmprunt.take(emprunteur, livreEmp, livreEmp2, livreEmp3));
+                System.out.println(gestionEmprunt.take(livreEmp, livreEmp2, livreEmp3));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Find the same emprunteur and take more book that he can take");
+            System.out.println("Take more book that he can take");
             try {
-                Emprunteur emprunteur = gestionEmprunt.find(0);
                 LivreEmp livreEmp = infosLivre.findById("444");
-                System.out.println(gestionEmprunt.take(emprunteur, livreEmp));
+                System.out.println(gestionEmprunt.take(livreEmp));
                 System.out.println("Comportement non voulue");
             } catch (NbMaxEmpruntsAtteint e) {
                 System.out.println("OK : " + e);
@@ -50,13 +42,12 @@ public class Client {
                 e.printStackTrace();
             }
 
-            System.out.println("Find the same emprunteur and give back the books");
+            System.out.println("Give back the books");
             try {
-                Emprunteur emprunteur = gestionEmprunt.find(0);
                 LivreEmp livreEmp = infosLivre.findById("111");
                 LivreEmp livreEmp2 = infosLivre.findById("222");
                 LivreEmp livreEmp3 = infosLivre.findById("333");
-                System.out.println(gestionEmprunt.giveBack(emprunteur, livreEmp, livreEmp2, livreEmp3));
+                System.out.println(gestionEmprunt.giveBack(livreEmp, livreEmp2, livreEmp3));
             } catch (Throwable e) {
                 e.printStackTrace();
             }

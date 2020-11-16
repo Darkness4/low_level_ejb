@@ -1,5 +1,7 @@
 package example;
 
+import example.entities.LivreEmp;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,21 +30,15 @@ public class InfosLivreImpl implements InfosLivre {
     }
 
     @Override
-    public List<LivreEmp> desemprunter() {
+    public List<LivreEmp> reinitialiser() {
         final List<LivreEmp> modified = new ArrayList<>();
         var list = findAll();
         for (LivreEmp livreEmp : list) {
-            livreEmp.setEmpruntepar(null);
-            update(livreEmp);
+            livreEmp.setEmpruntepar(0);
+            livreEmp = em.merge(livreEmp);
             modified.add(livreEmp);
         }
-        return modified;
-    }
-
-    @Override
-    public LivreEmp update(LivreEmp livreEmp) {
-        livreEmp = em.merge(livreEmp);
         em.flush();
-        return livreEmp;
+        return modified;
     }
 }

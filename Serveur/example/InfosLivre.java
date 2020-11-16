@@ -1,5 +1,7 @@
 package example;
 
+import example.entities.LivreEmp;
+
 import javax.ejb.Remote;
 import java.util.List;
 
@@ -7,6 +9,5 @@ import java.util.List;
 public interface InfosLivre {
     LivreEmp findById(String isbn);
     List<LivreEmp> findAll();
-    List<LivreEmp> desemprunter();
-    LivreEmp update(LivreEmp livreEmp);
+    List<LivreEmp> reinitialiser();
 }

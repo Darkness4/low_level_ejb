@@ -1,5 +1,7 @@
 package example;
 
+import example.entities.Emprunteur;
+import example.entities.LivreEmp;
 import example.exceptions.LivreDejaEmprunte;
 import example.exceptions.NbMaxEmpruntsAtteint;
 
@@ -9,11 +11,9 @@ import java.util.List;
 @Remote
 public interface GestionEmprunt {
     int MAX_EMPRUNT = 3;
-    Emprunteur find(int numemp);
-    List<Emprunteur> desemprunter();
+    Emprunteur gerer(int numemp);
+    List<Emprunteur> reinitialiser();
     List<Emprunteur> findAll();
-    LivreEmp updateLivreEmp(LivreEmp livreEmp);
-    Emprunteur update(Emprunteur emprunteur);
-    List<LivreEmp> take(Emprunteur emprunteur, LivreEmp... livreEmps) throws NbMaxEmpruntsAtteint, LivreDejaEmprunte;
-    List<LivreEmp> giveBack(Emprunteur emprunteur, LivreEmp... livreEmps);
+    List<LivreEmp> take(LivreEmp... livreEmps) throws NbMaxEmpruntsAtteint, LivreDejaEmprunte;
+    List<LivreEmp> giveBack(LivreEmp... livreEmps);
 }

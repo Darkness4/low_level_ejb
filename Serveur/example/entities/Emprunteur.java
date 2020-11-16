@@ -1,4 +1,4 @@
-package example;
+package example.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ public class Emprunteur implements Serializable {
     @Column(length = 20)
     private String nom;
 
-    @Column()
+    @Column
     private int nblivresemp;
 
     public int getNumemp() {
