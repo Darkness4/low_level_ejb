@@ -39,6 +39,7 @@ public class GestionEmpruntImpl implements GestionEmprunt {
             emprunteur = em.merge(emprunteur);
             modified.add(emprunteur);
         }
+        em.flush();
         return modified;
     }
 
@@ -73,12 +74,12 @@ public class GestionEmpruntImpl implements GestionEmprunt {
                 empSession.decrementNblivresemp();
                 empSession = em.merge(empSession);
 
-                livreEmp = em.find(LivreEmp.class, livreEmp.getIsbn());
                 livreEmp.setEmpruntepar(0);
                 livreEmp = em.merge(livreEmp);
                 modified.add(livreEmp);
             }
         }
+        em.flush();
         return modified;
     }
 
